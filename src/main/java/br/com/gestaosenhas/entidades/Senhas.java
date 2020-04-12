@@ -16,6 +16,8 @@ public class Senhas {
 	
 	private String formato;
 	
+	private Boolean atendida;
+	
 	@ManyToOne
 	@JoinColumn(name = "senha_tipo")
 	private TiposSenhas tipo;
@@ -34,6 +36,14 @@ public class Senhas {
 
 	public void setFormato(String formato) {
 		this.formato = formato;
+	}
+
+	public Boolean getAtendida() {
+		return atendida;
+	}
+
+	public void setAtendida(Boolean atendida) {
+		this.atendida = atendida;
 	}
 
 	public TiposSenhas getTipo() {
