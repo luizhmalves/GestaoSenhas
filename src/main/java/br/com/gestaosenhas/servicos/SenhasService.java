@@ -1,6 +1,9 @@
 package br.com.gestaosenhas.servicos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.gestaosenhas.entidades.Senhas;
@@ -33,9 +36,45 @@ public class SenhasService {
 			String senhaFormatoAux = String.format("%06d", this.contadorNormal);
 			senha.setFormato("N"+senhaFormatoAux);
 			senha.setAtendida(false);
-			this.contadorPreferencial++;
+			this.contadorNormal++;
 		}
 		senhaRepositorio.save(senha);
 		return senha;
 	}
+
+	public List<Senhas> buscaTodas() {
+		return senhaRepositorio.findByAtendida(false, Sort.by(Sort.Direction.ASC,"tipo"));
+	}
+
+
+	public Senhas retornaProximaAtualizaAtual(Long id, Senhas senha) {
+		Senhas atualizada = senhaRepositorio.findById(id).get();
+		atualizada.setAtendida(true);
+		atualizada.setFormato(senha.getFormato());
+		atualizada.setId(id);
+		atualizada.setTipo(senha.getTipo());
+		senhaRepositorio.save(atualizada);
+		List<Senhas> senhas = this.buscaTodas();
+		if (senhas.isEmpty() || senhas == null) {
+			return null;
+		}
+		return senhas.get(0);
+	}
+
+	public void setContadorPreferencial(Integer contadorPreferencial) {
+		this.contadorPreferencial = contadorPreferencial;
+	}
+
+	public void setContadorNormal(Integer contadorNormal) {
+		this.contadorNormal = contadorNormal;
+	}
+	
+	public Integer getContadorPreferencial() {
+		return contadorPreferencial;
+	}
+	
+	public Integer getContadorNormal() {
+		return contadorNormal;
+	}
+	
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class TiposSenhas {
 	
@@ -18,6 +20,7 @@ public class TiposSenhas {
 	
 	private String descricao;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "tipo")
 	private List<Senhas> senhas = new ArrayList<Senhas>();
 
