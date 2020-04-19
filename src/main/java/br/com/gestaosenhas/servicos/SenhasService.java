@@ -45,15 +45,26 @@ public class SenhasService {
 	public List<Senhas> buscaTodas() {
 		return senhaRepositorio.findByAtendida(false, Sort.by(Sort.Direction.ASC,"tipo"));
 	}
-
+	
+	/**
+	 * Método para retornar próxima senha e atualizar próxima como já atendida,
+	 * caso seja necessário chamar a primeira senha o id de envio será o zero.
+	 * @param id idenficador a senha a ser atualizada.
+	 * @param senha objeto que será atualizado.
+	 * @return próximo objeto senha a ser atendido.
+	 */
 
 	public Senhas retornaProximaAtualizaAtual(Long id, Senhas senha) {
-		Senhas atualizada = senhaRepositorio.findById(id).get();
-		atualizada.setAtendida(true);
-		atualizada.setFormato(senha.getFormato());
-		atualizada.setId(id);
-		atualizada.setTipo(senha.getTipo());
-		senhaRepositorio.save(atualizada);
+		Senhas atualizada = null;
+		if (!id.equals(0L)) {
+			atualizada = senhaRepositorio.findById(id).get();
+			atualizada.setAtendida(true);
+			atualizada.setFormato(senha.getFormato());
+			atualizada.setId(id);
+			atualizada.setTipo(senha.getTipo());
+			senhaRepositorio.save(atualizada);
+		}
+		
 		List<Senhas> senhas = this.buscaTodas();
 		if (senhas.isEmpty() || senhas == null) {
 			return null;
