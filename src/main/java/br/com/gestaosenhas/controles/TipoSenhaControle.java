@@ -13,7 +13,7 @@ import br.com.gestaosenhas.entidades.TiposSenhas;
 import br.com.gestaosenhas.servicos.TipoSenhaService;
 
 @RestController
-@RequestMapping({"/senhas"})
+@RequestMapping({"/tpsenhas"})
 public class TipoSenhaControle {
 	
 	@Autowired
