@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, 

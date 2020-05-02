@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 public class TiposUsuarios {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	private String descricao;

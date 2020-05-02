@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 public class Senhas {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	private String formato;
